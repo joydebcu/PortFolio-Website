@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { useTheme } from './ThemeProvider';
 
 const ParticleBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -7,9 +8,12 @@ const ParticleBackground = () => {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const particleSystemRef = useRef<THREE.Points | null>(null);
+  const particlesMaterialRef = useRef<THREE.PointsMaterial | null>(null);
   const mousePositionRef = useRef({ x: 0, y: 0 });
   const targetPositionRef = useRef({ x: 0, y: 0 });
+  const { theme } = useTheme();
 
+  // Setup ThreeJS Scene
   useEffect(() => {
     if (!canvasRef.current) return;
 
@@ -71,10 +75,13 @@ const ParticleBackground = () => {
     const particlesMaterial = new THREE.PointsMaterial({
       size: 0.15,
       transparent: true,
-      opacity: 0.7,
+      opacity: theme === 'dark' ? 0.7 : 0.4, // Reduced opacity in light mode
       vertexColors: true,
-      sizeAttenuation: true
+      sizeAttenuation: true,
+      blending: THREE.AdditiveBlending
     });
+    
+    particlesMaterialRef.current = particlesMaterial;
     
     const particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particleSystem);
@@ -95,6 +102,19 @@ const ParticleBackground = () => {
       };
     };
 
+    // Touch movement handler for mobile
+    const handleTouchMove = (event: TouchEvent) => {
+      if (event.touches.length > 0) {
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+        
+        mousePositionRef.current = {
+          x: (event.touches[0].clientX - windowHalfX),
+          y: (event.touches[0].clientY - windowHalfY)
+        };
+      }
+    };
+
     // Window resize handler
     const handleResize = () => {
       if (!cameraRef.current || !rendererRef.current) return;
@@ -106,6 +126,7 @@ const ParticleBackground = () => {
 
     // Add event listeners
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove);
     window.addEventListener('resize', handleResize);
 
     // Animation loop
@@ -135,6 +156,7 @@ const ParticleBackground = () => {
     // Cleanup
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('resize', handleResize);
       
       if (particlesGeometry) {
@@ -149,7 +171,24 @@ const ParticleBackground = () => {
         rendererRef.current.dispose();
       }
     };
-  }, []);
+  }, []); // Only run once on mount
+
+  // Update particles based on theme changes
+  useEffect(() => {
+    if (particlesMaterialRef.current) {
+      // Adjust opacity based on theme
+      particlesMaterialRef.current.opacity = theme === 'dark' ? 0.7 : 0.4;
+      particlesMaterialRef.current.needsUpdate = true;
+      
+      // Color adjustments based on theme
+      if (theme === 'light') {
+        // Increase size slightly for better visibility in light mode
+        particlesMaterialRef.current.size = 0.18;
+      } else {
+        particlesMaterialRef.current.size = 0.15;
+      }
+    }
+  }, [theme]);
 
   return <canvas id="bg-canvas" ref={canvasRef} />;
 };

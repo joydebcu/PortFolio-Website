@@ -40,10 +40,14 @@ const SkillOrb = ({
     y: (Math.random() - 0.5) * 1.5
   });
   
-  // Update position in parent component
+  // Update position in parent component when position changes significantly
   useEffect(() => {
-    updatePosition(id, pos.x, pos.y);
-  }, [pos, id, updatePosition]);
+    const timer = setTimeout(() => {
+      updatePosition(id, pos.x, pos.y);
+    }, 100); // Debounce to avoid too many updates
+    
+    return () => clearTimeout(timer);
+  }, [Math.floor(pos.x), Math.floor(pos.y), id, updatePosition]);
   
   // Animation and collision detection
   useEffect(() => {
