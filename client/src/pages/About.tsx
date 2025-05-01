@@ -56,7 +56,7 @@ const About = () => {
             </div>
             
             <motion.div 
-              className="absolute -bottom-10 -left-10 bg-dark p-4 rounded-lg border border-primary/30 shadow-lg"
+              className="absolute -bottom-10 -left-10 bg-dark/70 backdrop-blur-md p-4 rounded-lg border border-primary/30 shadow-lg"
               animate={{ y: [0, -10, 0] }}
               transition={{ 
                 repeat: Infinity, 
@@ -71,7 +71,7 @@ const About = () => {
             </motion.div>
             
             <motion.div 
-              className="absolute -top-8 -right-8 bg-dark p-4 rounded-lg border border-primary/30 shadow-lg"
+              className="absolute -top-8 -right-8 bg-dark/70 backdrop-blur-md p-4 rounded-lg border border-primary/30 shadow-lg"
               animate={{ y: [0, -8, 0] }}
               transition={{ 
                 repeat: Infinity, 

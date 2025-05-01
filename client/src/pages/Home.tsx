@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import TypingEffect from '@/components/TypingEffect';
-import RotatingName from '@/components/RotatingName';
+import ExpandingName from '@/components/ExpandingName';
 import { scrollToElement } from '@/lib/utils';
 import { ScrollReveal } from '@/App';
 
@@ -14,9 +14,9 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          {/* 3D rotating name instead of 3D text */}
+          {/* Expanding name instead of rotating name */}
           <div className="mb-6">
-            <RotatingName text="Joy Deb" />
+            <ExpandingName text="Joy Deb" />
           </div>
           
           <div className="relative inline-block">

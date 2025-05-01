@@ -103,9 +103,6 @@ function App() {
           <ScrollProgress />
           <Navbar />
           
-          {/* Confetti effect that triggers before achievements section */}
-          <ConfettiEffect isVisible={showConfetti} duration={6000} count={150} />
-          
           {/* Use single-page layout with sections rather than routes */}
           <main className="relative">
             <Home />
@@ -113,42 +110,30 @@ function App() {
             <Experience />
             <Projects />
             <Skills />
-            
-            {/* Invisible element that triggers confetti right before achievements section */}
-            <div 
-              ref={achievementsTriggerRef}
-              className="absolute h-1 w-full pointer-events-none"
-              style={{ bottom: '100vh' }} // Position it so it triggers one viewport height before achievements
-              id="achievements-trigger"
-            />
-            
-            {/* Achievements section */}
             <section id="achievements" className="py-20 px-4">
               <div className="container mx-auto">
                 <h2 className="text-4xl md:text-5xl font-heading font-bold mb-12 text-center">
                   Achievements
                 </h2>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {/* Achievement cards will go here */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {[
                     {
-                      title: "Open Source Contributor",
-                      description: "Contributed to multiple open source projects, improving code quality and adding features",
-                      icon: "ri-github-fill",
-                      iconColor: "#3a86ff"
+                      title: "Competitive Coding",
+                      description: "Solved 1000+ challenging questions on Leetcode, GFG, and other competitive coding platforms.",
+                      icon: "ri-code-box-line",
+                      iconColor: "accent"
                     },
                     {
-                      title: "Hackathon Winner",
-                      description: "First place in college hackathon for innovative web application solution",
-                      icon: "ri-trophy-fill",
-                      iconColor: "#ffbe0b"
+                      title: "CodeChef Competition",
+                      description: "Secured 31st rank out of 6,800 participants in CodeChef Starters Nov '21 contest. Qualified for CodeChef SnackDown 2021.",
+                      icon: "ri-trophy-line",
+                      iconColor: "primary"
                     },
                     {
-                      title: "Technical Publications",
-                      description: "Published articles on modern web development techniques and best practices",
-                      icon: "ri-article-fill",
-                      iconColor: "#8338ec"
+                      title: "Professional Recognition",
+                      description: "Earned an 'Exceeds Expectations' performance rating at the end of internship, leading to a Pre-Placement Offer.",
+                      icon: "ri-award-line",
+                      iconColor: "secondary"
                     }
                   ].map((achievement, index) => (
                     <ScrollReveal 
@@ -167,35 +152,8 @@ function App() {
                 </div>
               </div>
             </section>
-            
             <Contact />
           </main>
-          
-          <footer className="py-8 px-4 border-t border-primary/20">
-            <div className="container mx-auto">
-              <div className="flex flex-col md:flex-row justify-between items-center">
-                <div className="mb-4 md:mb-0">
-                  <p className="text-foreground/60 text-sm">
-                    &copy; {new Date().getFullYear()} Joy Deb. All rights reserved.
-                  </p>
-                </div>
-                <div className="flex space-x-6 text-xl">
-                  <a href="mailto:joydeb1999217@gmail.com" className="text-foreground/60 hover:text-primary transition-colors" aria-label="Email">
-                    <i className="ri-mail-line"></i>
-                  </a>
-                  <a href="https://www.linkedin.com/in/joy-deb/" target="_blank" rel="noopener noreferrer" className="text-foreground/60 hover:text-primary transition-colors" aria-label="LinkedIn">
-                    <i className="ri-linkedin-fill"></i>
-                  </a>
-                  <a href="https://github.com/joydeb1999" target="_blank" rel="noopener noreferrer" className="text-foreground/60 hover:text-primary transition-colors" aria-label="GitHub">
-                    <i className="ri-github-fill"></i>
-                  </a>
-                  <a href="https://leetcode.com/joydeb1999" target="_blank" rel="noopener noreferrer" className="text-foreground/60 hover:text-primary transition-colors" aria-label="LeetCode">
-                    <i className="ri-code-box-line"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </footer>
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

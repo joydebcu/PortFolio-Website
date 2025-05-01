@@ -44,15 +44,19 @@ const SkillsCloud = ({ skills }: SkillsCloudProps) => {
     };
   }, []);
   
-  // Initialize orb positions in a circular pattern
+  // Initialize orb positions in a circular pattern based on experience
   useEffect(() => {
     if (dimensions.width > 0 && dimensions.height > 0 && boundaryRadius > 0) {
       const initialPositions = skills.map((skill, index) => {
-        const size = 80 + skill.size * 5;
+        const size = 60; // Fixed smaller size for all skills
         
-        // Position in a circular pattern
+        // Calculate distance from center based on experience (1-5)
+        // Higher experience = closer to center
+        const experienceFactor = (6 - skill.experience) / 5; // Invert scale so 5 is closest
+        const distanceFromCenter = boundaryRadius * 0.5 * experienceFactor;
+        
+        // Position in a circular pattern with smoother distribution
         const angle = (index / skills.length) * Math.PI * 2;
-        const distanceFromCenter = boundaryRadius * 0.6 * Math.random(); // Random distance from center
         
         // Calculate position within the circle
         const centerX = dimensions.width / 2;
@@ -86,8 +90,12 @@ const SkillsCloud = ({ skills }: SkillsCloudProps) => {
   return (
     <div 
       ref={containerRef}
-      className="word-cloud-container relative flex items-center justify-center"
-      style={{ height: '550px' }} // Increased height for more space
+      className="word-cloud-container relative flex items-center justify-center bg-dark/30 backdrop-blur-sm rounded-2xl"
+      style={{ 
+        height: '500px',
+        width: '500px',
+        margin: '0 auto'
+      }}
     >
       {/* Circular boundary indicator */}
       {boundaryRadius > 0 && (
@@ -96,7 +104,7 @@ const SkillsCloud = ({ skills }: SkillsCloudProps) => {
           style={{ 
             width: boundaryRadius * 2 + 'px', 
             height: boundaryRadius * 2 + 'px',
-            pointerEvents: 'none' // Allow interactions with orbs below
+            pointerEvents: 'none'
           }}
         />
       )}

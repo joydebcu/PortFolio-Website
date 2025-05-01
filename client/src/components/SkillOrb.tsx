@@ -6,6 +6,7 @@ export interface Skill {
   name: string;
   color: string;
   size: number;
+  experience: number; // 1-5 scale where 5 is highest experience
 }
 
 interface SkillOrbProps {
@@ -32,8 +33,8 @@ const SkillOrb = ({
   centerY = 0
 }: SkillOrbProps) => {
   const { name, color, size: skillSize } = skill;
-  const boxSize = 80 + skillSize * 5; // Larger size for the box
-  const textColor = getContrastColor(color);
+  const boxSize = 60; // Fixed smaller size
+  const textColor = '#ffffff'; // Always white text
   
   const [isBeingDragged, setIsBeingDragged] = useState(false);
   const [hasBeenClicked, setHasBeenClicked] = useState(false);
@@ -42,8 +43,8 @@ const SkillOrb = ({
     y: Math.random() * (containerHeight - boxSize)
   });
   const [velocity, setVelocity] = useState({
-    x: (Math.random() - 0.5) * 1.5,
-    y: (Math.random() - 0.5) * 1.5
+    x: (Math.random() - 0.5) * 0.5, // Reduced initial velocity
+    y: (Math.random() - 0.5) * 0.5
   });
   
   // Update position in parent component when position changes significantly
@@ -87,14 +88,14 @@ const SkillOrb = ({
           const bounceX = centerX + Math.cos(angle) * maxDistance - boxSize/2;
           const bounceY = centerY + Math.sin(angle) * maxDistance - boxSize/2;
           
-          // Reflect velocity (bounce)
+          // Reflect velocity (bounce) with reduced force
           const normalX = Math.cos(angle);
           const normalY = Math.sin(angle);
           const dotProduct = velocity.x * normalX + velocity.y * normalY;
           
           setVelocity(prev => ({
-            x: prev.x - 2 * dotProduct * normalX,
-            y: prev.y - 2 * dotProduct * normalY
+            x: prev.x - 1.5 * dotProduct * normalX, // Reduced bounce force
+            y: prev.y - 1.5 * dotProduct * normalY
           }));
           
           newX = bounceX;
@@ -125,15 +126,15 @@ const SkillOrb = ({
         // Minimum distance to avoid collision
         const minDistance = (boxSize + orb.size) / 2;
         
-        // If collision detected - stronger repulsion for TikTok-style bouncy effect
+        // If collision detected - gentler repulsion
         if (distance < minDistance) {
           // Calculate repulsion angle
           const angle = Math.atan2(dy, dx);
           
-          // Increase repulsion strength for more obvious effect
-          const pushStrength = 0.8;
+          // Reduced repulsion strength for smoother movement
+          const pushStrength = 0.3;
           
-          // Update velocity with repel force
+          // Update velocity with gentler repel force
           setVelocity(prev => ({
             x: prev.x + Math.cos(angle) * pushStrength,
             y: prev.y + Math.sin(angle) * pushStrength
@@ -141,10 +142,10 @@ const SkillOrb = ({
         }
       });
       
-      // Apply friction (slow down over time)
+      // Apply gentler friction (slower slowdown)
       setVelocity(prev => ({
-        x: prev.x * 0.97, // Less friction = more movement
-        y: prev.y * 0.97
+        x: prev.x * 0.98, // Less friction = smoother movement
+        y: prev.y * 0.98
       }));
       
       // Update position
@@ -185,18 +186,22 @@ const SkillOrb = ({
   
   return (
     <motion.div 
-      className="skill-box absolute flex items-center justify-center skill-orb-draggable"
+      className="skill-box absolute flex items-center justify-center skill-orb-draggable rounded-full"
       style={{ 
         width: `${boxSize}px`, 
         height: `${boxSize}px`, 
-        backgroundColor: `${color}10`,
+        backgroundColor: `${color}20`,
         color: textColor,
         borderColor: color,
         left: `${pos.x}px`,
         top: `${pos.y}px`,
-        fontSize: `${boxSize / 7}px`,
-        boxShadow: `0 4px 12px rgba(0, 0, 0, 0.1)`,
-        zIndex: isBeingDragged ? 50 : 1
+        fontSize: '14px',
+        boxShadow: `0 4px 12px ${color}20`,
+        zIndex: isBeingDragged ? 50 : 1,
+        border: `2px solid ${color}40`,
+        transform: 'translateZ(0)',
+        backfaceVisibility: 'hidden',
+        WebkitFontSmoothing: 'antialiased'
       }}
       initial={{ scale: 0 }}
       animate={{ 
@@ -209,9 +214,9 @@ const SkillOrb = ({
         delay: Math.random() * 0.5 
       }}
       whileHover={{ 
-        scale: 1.05,
+        scale: 1.1,
         borderColor: color,
-        boxShadow: `0 8px 20px rgba(58, 134, 255, 0.2)`
+        boxShadow: `0 8px 20px ${color}30`
       }}
       drag
       dragConstraints={{
@@ -220,14 +225,26 @@ const SkillOrb = ({
         right: containerWidth - boxSize,
         bottom: containerHeight - boxSize
       }}
-      dragElastic={0.2}
-      dragTransition={{ bounceStiffness: 400, bounceDamping: 10 }}
+      dragElastic={0.05}
+      dragTransition={{ 
+        bounceStiffness: 200,
+        bounceDamping: 20,
+        power: 0.2,
+        timeConstant: 200
+      }}
+      dragMomentum={false}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onDrag={handleDrag}
       onClick={handleClick}
     >
       <motion.span 
+        className="text-center px-1 font-medium select-none"
+        style={{
+          transform: 'translateZ(0)',
+          WebkitFontSmoothing: 'antialiased',
+          pointerEvents: 'none'
+        }}
         animate={hasBeenClicked ? { scale: [1, 1.2, 1], opacity: [1, 0.8, 1] } : {}}
         transition={{ duration: 0.5 }}
       >
@@ -237,7 +254,7 @@ const SkillOrb = ({
       {/* Pulse effect when clicked */}
       {hasBeenClicked && (
         <motion.div
-          className="absolute inset-0 bg-transparent border-2 rounded-lg"
+          className="absolute inset-0 bg-transparent border-2 rounded-full"
           style={{ borderColor: color }}
           initial={{ scale: 0.8, opacity: 1 }}
           animate={{ scale: 1.5, opacity: 0 }}
