@@ -1,10 +1,42 @@
 import { motion } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 import SkillsCloud from '@/components/SkillsCloud';
 import AchievementCard from '@/components/AchievementCard';
+import ConfettiEffect from '@/components/ConfettiEffect';
+import { ScrollReveal } from '@/App';
 import { skillsData, languageSkills, technologiesSkills } from '@/data/skills';
 import { achievementsData } from '@/data/achievements';
 
 const Skills = () => {
+  const [showConfetti, setShowConfetti] = useState(false);
+  const achievementsRef = useRef<HTMLDivElement>(null);
+  
+  // Trigger confetti effect when achievements section comes into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowConfetti(true);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.7
+      }
+    );
+
+    if (achievementsRef.current) {
+      observer.observe(achievementsRef.current);
+    }
+
+    return () => {
+      if (achievementsRef.current) {
+        observer.unobserve(achievementsRef.current);
+      }
+    };
+  }, []);
+  
   return (
     <section id="skills" className="py-20 px-4 relative">
       <div className="container mx-auto">
@@ -19,21 +51,17 @@ const Skills = () => {
         </motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <SkillsCloud skills={skillsData} />
-          </motion.div>
+          <ScrollReveal className="scroll-reveal-left">
+            <motion.div
+              whileInView={{ scale: [0.9, 1], opacity: [0, 1] }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <SkillsCloud skills={skillsData} />
+            </motion.div>
+          </ScrollReveal>
           
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
+          <ScrollReveal className="scroll-reveal-right">
             <div className="bg-dark/70 backdrop-blur-sm border border-primary/20 rounded-xl p-6">
               <h3 className="text-xl font-heading font-semibold mb-4 flex items-center">
                 <i className="ri-code-s-slash-line text-primary mr-2"></i>
@@ -41,9 +69,21 @@ const Skills = () => {
               </h3>
               <div className="flex flex-wrap gap-3 mb-6">
                 {languageSkills.map((skill, index) => (
-                  <span key={index} className="px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-lg text-sm">
+                  <motion.span 
+                    key={index} 
+                    className="px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-lg text-sm"
+                    whileHover={{ 
+                      scale: 1.05, 
+                      backgroundColor: 'rgba(58, 134, 255, 0.2)',
+                      boxShadow: '0 2px 10px rgba(58, 134, 255, 0.15)'
+                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
                     {skill}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
               
@@ -53,17 +93,31 @@ const Skills = () => {
               </h3>
               <div className="flex flex-wrap gap-3">
                 {technologiesSkills.map((skill, index) => (
-                  <span key={index} className="px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-lg text-sm">
+                  <motion.span 
+                    key={index} 
+                    className="px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-lg text-sm"
+                    whileHover={{ 
+                      scale: 1.05, 
+                      backgroundColor: 'rgba(58, 134, 255, 0.2)',
+                      boxShadow: '0 2px 10px rgba(58, 134, 255, 0.15)'
+                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    viewport={{ once: true }}
+                  >
                     {skill}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </ScrollReveal>
         </div>
         
-        {/* Achievements Section */}
-        <div className="mt-20">
+        {/* Achievements Section with Confetti Effect */}
+        <div className="mt-20" ref={achievementsRef}>
+          <ConfettiEffect isVisible={showConfetti} count={150} duration={8000} />
+          
           <motion.h3 
             className="text-2xl font-heading font-semibold mb-8 text-center"
             initial={{ opacity: 0, y: 20 }}
@@ -73,6 +127,7 @@ const Skills = () => {
           >
             Achievements
           </motion.h3>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {achievementsData.map((achievement, index) => (
               <AchievementCard
