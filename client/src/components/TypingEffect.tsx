@@ -9,9 +9,9 @@ interface TypingEffectProps {
 
 const TypingEffect = ({ 
   phrases,
-  typingSpeed = 100,
-  deleteSpeed = 50,
-  pauseTime = 1500
+  typingSpeed = 60,   // Faster typing speed 
+  deleteSpeed = 30,   // Faster deletion speed
+  pauseTime = 1000    // Shorter pause time
 }: TypingEffectProps) => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);

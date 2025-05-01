@@ -15,6 +15,9 @@ interface SkillOrbProps {
   orbPositions: Array<{id: number, x: number, y: number, size: number}>;
   id: number;
   updatePosition: (id: number, x: number, y: number) => void;
+  boundaryRadius?: number;
+  centerX?: number;
+  centerY?: number;
 }
 
 const SkillOrb = ({ 
@@ -23,7 +26,10 @@ const SkillOrb = ({
   containerHeight, 
   orbPositions,
   id,
-  updatePosition
+  updatePosition,
+  boundaryRadius = 0,
+  centerX = 0,
+  centerY = 0
 }: SkillOrbProps) => {
   const { name, color, size: skillSize } = skill;
   const boxSize = 80 + skillSize * 5; // Larger size for the box
@@ -58,15 +64,53 @@ const SkillOrb = ({
       let newX = pos.x + velocity.x;
       let newY = pos.y + velocity.y;
       
-      // Bounce off walls
-      if (newX <= 0 || newX + boxSize >= containerWidth) {
-        setVelocity(prev => ({ ...prev, x: -prev.x * 0.85 }));
-        newX = newX <= 0 ? 0 : containerWidth - boxSize;
-      }
-      
-      if (newY <= 0 || newY + boxSize >= containerHeight) {
-        setVelocity(prev => ({ ...prev, y: -prev.y * 0.85 }));
-        newY = newY <= 0 ? 0 : containerHeight - boxSize;
+      // Check if circular boundary is active
+      if (boundaryRadius > 0 && centerX > 0 && centerY > 0) {
+        // Calculate center of orb
+        const orbCenterX = newX + boxSize/2;
+        const orbCenterY = newY + boxSize/2;
+        
+        // Calculate distance from center of container
+        const dx = orbCenterX - centerX;
+        const dy = orbCenterY - centerY;
+        const distanceFromCenter = Math.sqrt(dx*dx + dy*dy);
+        
+        // Maximum allowed distance (boundary radius minus half of orb size)
+        const maxDistance = boundaryRadius - (boxSize/2);
+        
+        // If orb is outside the boundary
+        if (distanceFromCenter > maxDistance && maxDistance > 0) {
+          // Calculate angle from center of container to orb
+          const angle = Math.atan2(dy, dx);
+          
+          // Set new position at boundary
+          const bounceX = centerX + Math.cos(angle) * maxDistance - boxSize/2;
+          const bounceY = centerY + Math.sin(angle) * maxDistance - boxSize/2;
+          
+          // Reflect velocity (bounce)
+          const normalX = Math.cos(angle);
+          const normalY = Math.sin(angle);
+          const dotProduct = velocity.x * normalX + velocity.y * normalY;
+          
+          setVelocity(prev => ({
+            x: prev.x - 2 * dotProduct * normalX,
+            y: prev.y - 2 * dotProduct * normalY
+          }));
+          
+          newX = bounceX;
+          newY = bounceY;
+        }
+      } else {
+        // Default rectangle boundary behavior
+        if (newX <= 0 || newX + boxSize >= containerWidth) {
+          setVelocity(prev => ({ ...prev, x: -prev.x * 0.85 }));
+          newX = newX <= 0 ? 0 : containerWidth - boxSize;
+        }
+        
+        if (newY <= 0 || newY + boxSize >= containerHeight) {
+          setVelocity(prev => ({ ...prev, y: -prev.y * 0.85 }));
+          newY = newY <= 0 ? 0 : containerHeight - boxSize;
+        }
       }
       
       // Check for collisions with other orbs
@@ -81,13 +125,13 @@ const SkillOrb = ({
         // Minimum distance to avoid collision
         const minDistance = (boxSize + orb.size) / 2;
         
-        // If collision detected
+        // If collision detected - stronger repulsion for TikTok-style bouncy effect
         if (distance < minDistance) {
           // Calculate repulsion angle
           const angle = Math.atan2(dy, dx);
           
-          // Repulsion strength (TikTok style elastic push)
-          const pushStrength = 0.5;
+          // Increase repulsion strength for more obvious effect
+          const pushStrength = 0.8;
           
           // Update velocity with repel force
           setVelocity(prev => ({
@@ -99,8 +143,8 @@ const SkillOrb = ({
       
       // Apply friction (slow down over time)
       setVelocity(prev => ({
-        x: prev.x * 0.975,
-        y: prev.y * 0.975
+        x: prev.x * 0.97, // Less friction = more movement
+        y: prev.y * 0.97
       }));
       
       // Update position
@@ -109,7 +153,7 @@ const SkillOrb = ({
     }, 16);
     
     return () => clearInterval(moveInterval);
-  }, [isBeingDragged, pos, velocity, containerWidth, containerHeight, boxSize, id, orbPositions]);
+  }, [isBeingDragged, pos, velocity, containerWidth, containerHeight, boxSize, id, orbPositions, boundaryRadius, centerX, centerY]);
   
   // Handle click for highlighting effect
   const handleClick = () => {

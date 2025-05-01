@@ -155,12 +155,12 @@ function App() {
                       key={index} 
                       className={`scroll-reveal-${index % 2 === 0 ? 'up' : 'right'}`}
                     >
-                      <div className="card-3d bg-background/70 backdrop-blur-sm border border-primary/20 rounded-xl p-6 h-full hover:border-primary/50 transition-colors">
-                        <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-4`} style={{ backgroundColor: `${achievement.iconColor}20`, color: achievement.iconColor }}>
+                      <div className="card-3d border-2 border-primary/40 rounded-xl p-6 h-full hover:border-primary transition-colors hover:shadow-lg bg-background">
+                        <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-4`} style={{ backgroundColor: `${achievement.iconColor}25`, color: achievement.iconColor }}>
                           <i className={achievement.icon}></i>
                         </div>
                         <h3 className="text-xl font-heading font-semibold mb-2">{achievement.title}</h3>
-                        <p className="text-foreground/80">{achievement.description}</p>
+                        <p className="text-foreground/90">{achievement.description}</p>
                       </div>
                     </ScrollReveal>
                   ))}
