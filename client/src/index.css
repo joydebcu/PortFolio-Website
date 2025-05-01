@@ -115,6 +115,58 @@
     @apply translate-x-8;
   }
 
+  /* 3D perspective effects */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  /* 3D card effects */
+  .card-3d {
+    @apply transition-transform duration-300 preserve-3d backface-hidden relative;
+    transform: translateZ(0);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-3d:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* TikTok-style scroll animations */
+  .timeline-tiktok {
+    position: relative;
+  }
+  
+  .timeline-tiktok::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 6px;
+    width: 2px;
+    background: linear-gradient(180deg, transparent, theme('colors.primary.DEFAULT'), theme('colors.accent.DEFAULT'), transparent);
+    z-index: 1;
+    transition: all 0.5s ease;
+  }
+  
+  .timeline-dot {
+    @apply absolute left-[-8px] w-5 h-5 bg-primary rounded-full z-10;
+    transform: scale(0);
+    transition: transform 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  }
+  
+  .timeline-visible .timeline-dot {
+    transform: scale(1);
+  }
+
   /* Confetti animation */
   .confetti {
     position: fixed;
@@ -154,6 +206,19 @@
     opacity: 1;
   }
 
+  /* Skill box with visible border */
+  .skill-box {
+    @apply border-2 border-primary/30 rounded-lg p-2.5 bg-background/80 backdrop-blur-sm;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .skill-box:hover {
+    @apply border-primary;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(58, 134, 255, 0.2);
+  }
+
   /* Send Message Animation */
   .send-animation {
     position: relative;
@@ -173,6 +238,25 @@
   
   .send-animation.animate::after {
     animation: send-wave 1s ease-in-out;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .card-3d:hover {
+      transform: translateY(-5px) rotateX(2deg) rotateY(2deg);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .timeline-tiktok::before {
+      left: 4px;
+    }
+    
+    .timeline-dot {
+      left: -6px;
+      width: 4px;
+      height: 4px;
+    }
   }
 }
 

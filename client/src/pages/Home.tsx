@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import TypingEffect from '@/components/TypingEffect';
-import ThreeText from '@/components/ThreeText';
+import RotatingName from '@/components/RotatingName';
 import { scrollToElement } from '@/lib/utils';
 import { ScrollReveal } from '@/App';
 
@@ -14,9 +14,9 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          {/* Replace static text with 3D text */}
+          {/* 3D rotating name instead of 3D text */}
           <div className="mb-6">
-            <ThreeText text="Joy Deb" />
+            <RotatingName text="Joy Deb" />
           </div>
           
           <div className="relative inline-block">
@@ -100,28 +100,6 @@ const Home = () => {
               </motion.a>
             </div>
           </ScrollReveal>
-        </motion.div>
-        
-        <motion.div 
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ 
-            repeat: Infinity, 
-            duration: 2,
-            ease: "easeInOut" 
-          }}
-        >
-          <a 
-            href="#about" 
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToElement('about');
-            }}
-            aria-label="Scroll down"
-            className="p-3 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
-          >
-            <i className="ri-arrow-down-line text-2xl"></i>
-          </a>
         </motion.div>
       </div>
     </section>
