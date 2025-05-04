@@ -18,7 +18,7 @@ const Skills = () => {
           Technical <span className="text-gradient">Skills</span>
         </motion.h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <ScrollReveal className="scroll-reveal-left">
             <motion.div
               whileInView={{ scale: [0.9, 1], opacity: [0, 1] }}

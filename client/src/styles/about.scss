@@ -132,6 +132,7 @@
       span {
         font-size: 0.75rem;
         font-family: 'Fira Code', monospace;
+        color: var(--foreground);
 
         @media (min-width: 768px) {
           font-size: 0.875rem;

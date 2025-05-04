@@ -10,10 +10,10 @@ interface TypingEffectProps {
 
 const TypingEffect = ({ 
   phrases,
-  typingSpeed = 100,    // Slower typing speed for more natural feel
-  deleteSpeed = 50,     // Slower deletion speed
-  pauseTime = 2000,     // Longer pause to read
-  initialDelay = 500    // Longer initial delay
+  typingSpeed = 50,    // Faster typing speed
+  deleteSpeed = 30,    // Faster deletion speed
+  pauseTime = 1000,    // Shorter pause to read
+  initialDelay = 100   // Shorter initial delay
 }: TypingEffectProps) => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -34,7 +34,7 @@ const TypingEffect = ({
       setCurrentText(nextText);
 
       // Add random variation to typing speed for more natural feel
-      const randomVariation = Math.random() * 50 - 25; // ±25ms variation
+      const randomVariation = Math.random() * 20 - 10; // ±10ms variation
       let speed = isDeleting ? deleteSpeed : typingSpeed;
       speed += randomVariation;
 
@@ -62,12 +62,15 @@ const TypingEffect = ({
     timeout = setTimeout(type, initialDelay);
 
     return () => clearTimeout(timeout);
-  }, [currentText, currentIndex, isDeleting, phrases, typingSpeed, deleteSpeed, pauseTime, initialDelay]);
+  }, [currentIndex, currentText, isDeleting, isPaused, phrases, typingSpeed, deleteSpeed, pauseTime, initialDelay]);
 
   return (
-    <span className="relative inline-block min-w-[300px]">
-      <span id="role-text" className="inline-block">{currentText}</span>
-      <span className={`absolute -right-4 top-0 h-full w-1 bg-primary ${isPaused ? 'animate-none' : 'animate-pulse'}`}></span>
+    <span className="relative inline-block">
+      <span className="inline-block">{currentText}</span>
+      <span 
+        className={`absolute top-0 h-full w-0.5 bg-primary ${isPaused ? 'animate-none' : 'animate-pulse'}`}
+        style={{ left: '100%' }}
+      ></span>
     </span>
   );
 };

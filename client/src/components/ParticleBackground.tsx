@@ -39,7 +39,7 @@ const ParticleBackground = () => {
     
     // Create the particle system
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1500;
+    const particlesCount = 2000; // Increased particle count
     
     const posArray = new Float32Array(particlesCount * 3);
     const colorsArray = new Float32Array(particlesCount * 3);
@@ -75,7 +75,7 @@ const ParticleBackground = () => {
     const particlesMaterial = new THREE.PointsMaterial({
       size: 0.15,
       transparent: true,
-      opacity: theme === 'dark' ? 0.7 : 0.4, // Reduced opacity in light mode
+      opacity: theme === 'dark' ? 0.8 : 0.6, // Increased opacity for better visibility
       vertexColors: true,
       sizeAttenuation: true,
       blending: THREE.AdditiveBlending
@@ -177,13 +177,13 @@ const ParticleBackground = () => {
   useEffect(() => {
     if (particlesMaterialRef.current) {
       // Adjust opacity based on theme
-      particlesMaterialRef.current.opacity = theme === 'dark' ? 0.7 : 0.4;
+      particlesMaterialRef.current.opacity = theme === 'dark' ? 0.8 : 0.6;
       particlesMaterialRef.current.needsUpdate = true;
       
       // Color adjustments based on theme
       if (theme === 'light') {
-        // Increase size slightly for better visibility in light mode
-        particlesMaterialRef.current.size = 0.18;
+        // Increase size and brightness for better visibility in light mode
+        particlesMaterialRef.current.size = 0.2;
       } else {
         particlesMaterialRef.current.size = 0.15;
       }

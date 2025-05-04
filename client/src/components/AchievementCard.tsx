@@ -26,8 +26,8 @@ const AchievementCard = ({ achievement, index }: AchievementCardProps) => {
       <div className={`text-3xl text-${iconColor} mb-4`}>
         <i className={icon}></i>
       </div>
-      <h4 className="text-lg font-medium mb-2">{title}</h4>
-      <p className="text-light/80 text-sm">
+      <h4 className="text-lg font-medium mb-2 text-foreground">{title}</h4>
+      <p className="text-foreground/80 text-sm">
         {description}
       </p>
     </motion.div>
