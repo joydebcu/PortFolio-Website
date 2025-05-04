@@ -8,6 +8,7 @@ import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import ConfettiEffect from "@/components/ConfettiEffect";
+import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Experience from "@/pages/Experience";
@@ -114,6 +115,8 @@ function App() {
             <Achievements />
             <Contact />
           </main>
+          
+          <Footer />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
