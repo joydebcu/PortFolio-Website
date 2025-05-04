@@ -111,6 +111,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👤 Contact
 
 - **Email**: joydeb1999217@gmail.com
-- **LinkedIn**: [Joy Deb](https://www.linkedin.com/in/joy-deb/)
+- **LinkedIn**: [Joy Deb](https://www.linkedin.com/in/joy-deb21/)
 - **GitHub**: [joydeb1999](https://github.com/joydeb1999)
 - **LeetCode**: [joydeb1999](https://leetcode.com/joydeb1999) 

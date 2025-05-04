@@ -20,17 +20,17 @@ const ExpandingName = ({ text, className = '' }: ExpandingNameProps) => {
   }, []);
   
   return (
-    <div className={`w-full ${className}`}>
+    <div className={`w-full ${className} py-4`}>
       <motion.div
         className="group"
         animate={isAnimating ? { 
-          scale: [1, 1.2, 1],
-          letterSpacing: ['0px', '2px', '0px']
+          scale: [1, 1.1, 1],
+          letterSpacing: ['0px', '1px', '0px']
         } : { scale: 1, letterSpacing: '0px' }}
         transition={{
-          duration: 2,
+          duration: 10,
           ease: "easeInOut",
-          times: [0, 0.5, 1]
+          times: [0, 2.5, 5]
         }}
       >
         <motion.h1 
@@ -39,7 +39,7 @@ const ExpandingName = ({ text, className = '' }: ExpandingNameProps) => {
             background: 'linear-gradient(to right, #3a86ff, #8338ec, #ff006e)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            textShadow: `0 5px 20px rgba(58, 134, 255, 0.3)`
+            textShadow: `0 5px 20px rgba(58, 134, 255, 0.3)`,
           }}
         >
           {text}

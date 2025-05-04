@@ -21,7 +21,20 @@ const Home = () => {
           
           <div className="relative inline-block">
             <h2 className="text-xl md:text-2xl font-medium mb-8 relative">
-              <TypingEffect phrases={['Software Developer', 'Problem Solver', 'Full Stack Developer', 'SDE 1']} />
+              <TypingEffect 
+                phrases={[
+                  'Software Developer',
+                  'Problem Solver',
+                  'Full Stack Developer',
+                  'SDE 1 at GeeksForGeeks',
+                  'NextJS Enthusiast',
+                  'Django Developer',
+                  'Database Expert',
+                ]} 
+                typingSpeed={40}
+                deleteSpeed={20}
+                pauseTime={1500}
+              />
             </h2>
           </div>
           
@@ -69,7 +82,7 @@ const Home = () => {
                 <i className="ri-mail-line"></i>
               </motion.a>
               <motion.a 
-                href="https://www.linkedin.com/in/joy-deb/" 
+                href="https://www.linkedin.com/in/joy-deb21/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:text-primary transition-colors" 

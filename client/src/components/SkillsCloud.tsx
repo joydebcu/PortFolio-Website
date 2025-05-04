@@ -26,7 +26,7 @@ const SkillsCloud = ({ skills }: SkillsCloudProps) => {
         const height = containerRef.current.offsetHeight;
         
         // Calculate radius for circular boundary (slightly smaller than container)
-        const radius = Math.min(width, height) * 0.45;
+        const radius = Math.min(width, height) * 0.5; // Reduced from 0.45 to 0.4
         
         setDimensions({ width, height });
         setBoundaryRadius(radius);
@@ -48,12 +48,12 @@ const SkillsCloud = ({ skills }: SkillsCloudProps) => {
   useEffect(() => {
     if (dimensions.width > 0 && dimensions.height > 0 && boundaryRadius > 0) {
       const initialPositions = skills.map((skill, index) => {
-        const size = 60; // Fixed smaller size for all skills
+        const size = 30; // Reduced from 60 to 45 for smaller orbs
         
         // Calculate distance from center based on experience (1-5)
         // Higher experience = closer to center
         const experienceFactor = (6 - skill.experience) / 5; // Invert scale so 5 is closest
-        const distanceFromCenter = boundaryRadius * 0.5 * experienceFactor;
+        const distanceFromCenter = boundaryRadius * 0.6 * experienceFactor; // Increased from 0.5 to 0.6 for more spacing
         
         // Position in a circular pattern with smoother distribution
         const angle = (index / skills.length) * Math.PI * 2;

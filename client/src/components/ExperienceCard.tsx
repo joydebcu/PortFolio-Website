@@ -1,10 +1,35 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
+
+// Helper to format text with highlighted percentages
+function AnimatedNumbers({ text, inView }: { text: string; inView: boolean }) {
+  // Regex to match only percentages
+  const regex = /([0-9]+(?:\.[0-9]+)?%)/g;
+  const parts = text.split(regex);
+
+  return (
+    <span>
+      {parts.map((part, i) => {
+        if (part.match(regex)) {
+          // Highlight percentage numbers
+          return (
+            <span key={i} className="font-bold text-primary underline decoration-2 underline-offset-4">
+              {part}
+            </span>
+          );
+        }
+        // Normal text
+        return <span key={i} className="font-normal">{part}</span>;
+      })}
+    </span>
+  );
+}
 
 export interface Experience {
   company: string;
   role: string;
   period: string;
+  location: string;
   technologies: string;
   achievements: string[];
 }
@@ -15,7 +40,7 @@ interface ExperienceCardProps {
 }
 
 const ExperienceCard = ({ experience, index }: ExperienceCardProps) => {
-  const { company, role, period, technologies, achievements } = experience;
+  const { company, role, period, location, technologies, achievements } = experience;
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: false, margin: "-10% 0px -10% 0px" });
   
@@ -59,6 +84,7 @@ const ExperienceCard = ({ experience, index }: ExperienceCardProps) => {
             <div>
               <h3 className="text-2xl font-heading font-semibold">{company}</h3>
               <p className="text-lg font-medium text-primary">{role}</p>
+              <p className="text-sm text-foreground/70">{location}</p>
             </div>
             <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
               {period}
@@ -83,7 +109,7 @@ const ExperienceCard = ({ experience, index }: ExperienceCardProps) => {
                 } : { opacity: 0, x: -20 }}
               >
                 <i className="ri-checkbox-circle-fill text-primary mt-1 flex-shrink-0"></i>
-                <span>{achievement}</span>
+                <AnimatedNumbers text={achievement} inView={isInView} />
               </motion.li>
             ))}
           </ul>

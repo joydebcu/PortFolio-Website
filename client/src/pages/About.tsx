@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
+import '@/styles/about.scss';
 
 const About = () => {
   return (
-    <section id="about" className="py-20 px-4 relative">
+    <section id="about" className="py-20 px-4 relative about-section">
       <div className="container mx-auto">
         <motion.h2 
-          className="text-4xl font-heading font-bold mb-12 text-center"
+          className="section-title"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -14,49 +15,48 @@ const About = () => {
           About <span className="text-gradient">Me</span>
         </motion.h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div className="about-grid">
           <motion.div 
-            className="order-2 md:order-1"
+            className="about-content"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <p className="text-lg mb-6 leading-relaxed">
-              I'm a <span className="text-primary font-medium">Software Developer</span> with experience in building efficient, 
+            <p>
+              I'm a <span className="highlight-primary">Software Developer</span> with experience in building efficient, 
               scalable applications using modern web technologies. Currently working as an 
-              <span className="text-accent font-medium"> SDE 1 at GeeksForGeeks</span>, I specialize in NextJS, Django, 
+              <span className="highlight-accent"> SDE 1 at GeeksForGeeks</span>, I specialize in NextJS, Django, 
               and database technologies.
             </p>
-            <p className="text-lg mb-6 leading-relaxed">
-              With a strong foundation in Computer Science from <span className="text-primary font-medium">Chandigarh University</span>, 
+            <p>
+              With a strong foundation in Computer Science from <span className="highlight-primary">Chandigarh University</span>, 
               I enjoy solving complex problems and building user-friendly applications. I've successfully 
-              solved <span className="text-accent font-medium">1000+ coding challenges</span> on platforms like LeetCode and GFG, 
+              solved <span className="highlight-accent">1000+ coding challenges</span> on platforms like LeetCode and GFG, 
               demonstrating my algorithmic thinking and problem-solving abilities.
             </p>
-            <p className="text-lg leading-relaxed">
+            <p>
               I'm passionate about creating software that makes a real difference, whether it's improving user experience, 
               optimizing performance, or solving critical business problems.
             </p>
           </motion.div>
           
           <motion.div 
-            className="order-1 md:order-2 relative"
+            className="profile-container"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <div className="aspect-square rounded-2xl overflow-hidden border-4 border-primary/30 shadow-xl shadow-primary/10 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+            <div className="profile-image-wrapper">
               <img 
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80" 
-                alt="Professional software developer at work" 
-                className="w-full h-full object-cover"
+                src="/images/profile.jpg" 
+                alt="Joy Deb - Software Developer" 
               />
             </div>
             
             <motion.div 
-              className="absolute -bottom-10 -left-10 bg-dark/70 backdrop-blur-md p-4 rounded-lg border border-primary/30 shadow-lg"
+              className="achievement-card bottom-left"
               animate={{ y: [0, -10, 0] }}
               transition={{ 
                 repeat: Infinity, 
@@ -64,14 +64,14 @@ const About = () => {
                 ease: "easeInOut" 
               }}
             >
-              <div className="flex items-center gap-2">
-                <i className="ri-code-s-slash-line text-xl text-primary"></i>
-                <span className="text-sm font-mono">1000+ coding problems solved</span>
+              <div className="achievement-content">
+                <i className="ri-code-s-slash-line primary"></i>
+                <span>1000+ coding problems solved</span>
               </div>
             </motion.div>
             
             <motion.div 
-              className="absolute -top-8 -right-8 bg-dark/70 backdrop-blur-md p-4 rounded-lg border border-primary/30 shadow-lg"
+              className="achievement-card top-right"
               animate={{ y: [0, -8, 0] }}
               transition={{ 
                 repeat: Infinity, 
@@ -80,9 +80,9 @@ const About = () => {
                 delay: 1
               }}
             >
-              <div className="flex items-center gap-2">
-                <i className="ri-trophy-line text-xl text-accent"></i>
-                <span className="text-sm font-mono">Ranked 31st out of 6,800</span>
+              <div className="achievement-content">
+                <i className="ri-trophy-line accent"></i>
+                <span>Ranked 31st out of 6,800</span>
               </div>
             </motion.div>
           </motion.div>

@@ -1,41 +1,100 @@
 import { Skill } from '@/components/SkillOrb';
 
 export const skillsData: Skill[] = [
-  { name: 'React', color: '#61DAFB', size: 70 },
-  { name: 'Django', color: '#092E20', size: 80 },
-  { name: 'NextJS', color: '#000000', size: 75 },
-  { name: 'TypeScript', color: '#3178C6', size: 65 },
-  { name: 'Python', color: '#3776AB', size: 75 },
-  { name: 'MySQL', color: '#4479A1', size: 70 },
-  { name: 'Redis', color: '#DC382D', size: 60 },
-  { name: 'JavaScript', color: '#F7DF1E', size: 75 },
-  { name: 'C++', color: '#00599C', size: 65 },
-  { name: 'MongoDB', color: '#47A248', size: 60 },
-  { name: 'REST API', color: '#FF6C37', size: 65 },
-  { name: 'PostgreSQL', color: '#336791', size: 70 }
+  {
+    name: 'Next.js',
+    color: '#339933',
+    size: 4,
+    experience: 5
+  },
+  {
+    name: 'React',
+    color: '#61DAFB',
+    size: 4,
+    experience: 5
+  },
+  {
+    name: 'TypeScript',
+    color: '#3178C6',
+    size: 1,
+    experience: 4
+  },
+  {
+    name: 'Node.js',
+    color: '#339933',
+    size: 2,
+    experience: 4
+  },
+  {
+    name: 'Django',
+    color: '#336791',
+    size: 4,
+    experience: 5
+  },
+  {
+    name: 'Python',
+    color: '#3776AB',
+    size: 4,
+    experience: 5
+  },
+  {
+    name: 'PostgreSQL',
+    color: '#336791',
+    size: 3,
+    experience: 4
+  },
+  {
+    name: 'MongoDB',
+    color: '#47A248',
+    size: 1,
+    experience: 3
+  },
+  {
+    name: 'AWS',
+    color: '#FF9900',
+    size: 3,
+    experience: 3
+  },
+  {
+    name: 'Docker',
+    color: '#2496ED',
+    size: 1,
+    experience: 3
+  },
+  {
+    name: 'Git',
+    color: '#F05032',
+    size: 3,
+    experience: 4
+  },
+  {
+    name: 'Redis',
+    color: '#DC382D',
+    size: 2,
+    experience: 3
+  }
 ];
 
 export const languageSkills = [
-  'C++',
   'JavaScript',
   'TypeScript',
   'Python',
+  'HTML5',
+  'CSS3',
   'SQL'
 ];
 
 export const technologiesSkills = [
-  'ReactJS',
-  'Redux',
+  'React',
+  'Next.js',
+  'Node.js',
   'Django',
-  'NextJS',
-  'Git',
-  'Docker',
-  'MySQL',
   'PostgreSQL',
   'MongoDB',
-  'DynamoDB',
   'Redis',
-  'WebSockets',
-  'REST API',
-  'Linux'
+  'AWS',
+  'Docker',
+  'Git',
+  'REST APIs',
+  'WebSockets'
 ];

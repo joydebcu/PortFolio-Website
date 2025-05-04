@@ -66,8 +66,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-sm text-light/50">LinkedIn</h4>
-                  <a href="https://www.linkedin.com/in/joy-deb/" target="_blank" rel="noopener noreferrer" className="text-lg hover:text-primary transition-colors">
-                    linkedin.com/in/joy-deb
+                  <a href="https://www.linkedin.com/in/joy-deb21/" target="_blank" rel="noopener noreferrer" className="text-lg hover:text-primary transition-colors">
+                    linkedin.com/in/joy-deb21
                   </a>
                 </div>
               </motion.div>

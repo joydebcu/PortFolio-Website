@@ -116,7 +116,7 @@ const ContactForm = () => {
           id="name" 
           value={formData.name}
           onChange={handleChange}
-          className="w-full px-4 py-2 rounded-lg bg-dark border border-primary/30 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+          className="w-full px-4 py-2 rounded-lg bg-background/50 border border-primary/30 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors text-foreground placeholder:text-muted-foreground"
           placeholder="Your name"
           required
         />
@@ -129,7 +129,7 @@ const ContactForm = () => {
           id="email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full px-4 py-2 rounded-lg bg-dark border border-primary/30 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+          className="w-full px-4 py-2 rounded-lg bg-background/50 border border-primary/30 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors text-foreground placeholder:text-muted-foreground"
           placeholder="Your email"
           required
         />
@@ -142,7 +142,7 @@ const ContactForm = () => {
           rows={5}
           value={formData.message}
           onChange={handleChange}
-          className="w-full px-4 py-2 rounded-lg bg-dark border border-primary/30 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors resize-none"
+          className="w-full px-4 py-2 rounded-lg bg-background/50 border border-primary/30 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors resize-none text-foreground placeholder:text-muted-foreground"
           placeholder="Your message"
           required
         ></textarea>

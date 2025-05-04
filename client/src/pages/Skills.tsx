@@ -1,42 +1,10 @@
 import { motion } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import SkillsCloud from '@/components/SkillsCloud';
-import AchievementCard from '@/components/AchievementCard';
-import ConfettiEffect from '@/components/ConfettiEffect';
 import { ScrollReveal } from '@/App';
 import { skillsData, languageSkills, technologiesSkills } from '@/data/skills';
-import { achievementsData } from '@/data/achievements';
 
 const Skills = () => {
-  const [showConfetti, setShowConfetti] = useState(false);
-  const achievementsRef = useRef<HTMLDivElement>(null);
-  
-  // Trigger confetti effect when achievements section comes into view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShowConfetti(true);
-        }
-      },
-      {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.7
-      }
-    );
-
-    if (achievementsRef.current) {
-      observer.observe(achievementsRef.current);
-    }
-
-    return () => {
-      if (achievementsRef.current) {
-        observer.unobserve(achievementsRef.current);
-      }
-    };
-  }, []);
-  
   return (
     <section id="skills" className="py-20 px-4 relative">
       <div className="container mx-auto">
@@ -112,31 +80,6 @@ const Skills = () => {
               </div>
             </div>
           </ScrollReveal>
-        </div>
-        
-        {/* Achievements Section with Confetti Effect */}
-        <div className="mt-20" ref={achievementsRef}>
-          <ConfettiEffect isVisible={showConfetti} count={150} duration={8000} />
-          
-          <motion.h3 
-            className="text-2xl font-heading font-semibold mb-8 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            Achievements
-          </motion.h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {achievementsData.map((achievement, index) => (
-              <AchievementCard
-                key={index}
-                achievement={achievement}
-                index={index}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </section>
