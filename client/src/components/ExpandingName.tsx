@@ -20,7 +20,7 @@ const ExpandingName = ({ text, className = '' }: ExpandingNameProps) => {
   }, []);
   
   return (
-    <div className={`w-full ${className} py-4`}>
+    <div className={`w-full ${className}`}>
       <motion.div
         className="group"
         animate={isAnimating ? { 
@@ -40,6 +40,7 @@ const ExpandingName = ({ text, className = '' }: ExpandingNameProps) => {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             textShadow: `0 5px 20px rgba(58, 134, 255, 0.3)`,
+            paddingBottom: '1rem'
           }}
         >
           {text}
