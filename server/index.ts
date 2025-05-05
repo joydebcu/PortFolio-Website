@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { createServer } from 'net';
 
 const app = express();
 app.use(express.json());
@@ -36,6 +37,27 @@ app.use((req, res, next) => {
   next();
 });
 
+// Function to find an available port
+const findAvailablePort = async (startPort: number): Promise<number> => {
+  return new Promise((resolve, reject) => {
+    const server = createServer();
+    server.unref();
+    server.on('error', (err: NodeJS.ErrnoException) => {
+      if (err.code === 'EADDRINUSE') {
+        // Port is in use, try the next one
+        resolve(findAvailablePort(startPort + 1));
+      } else {
+        reject(err);
+      }
+    });
+    server.listen(startPort, () => {
+      server.close(() => {
+        resolve(startPort);
+      });
+    });
+  });
+};
+
 (async () => {
   const server = await registerRoutes(app);
 
@@ -56,9 +78,10 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port 3000
-  // this serves both the API and the client.
-  const port = 3000;
+  // Find an available port starting from the default or specified port
+  const startPort = parseInt(process.env.PORT || '3000', 10);
+  const port = await findAvailablePort(startPort);
+  
   server.listen(port, () => {
     log(`serving on port ${port}`);
   });

@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import ConfettiEffect from "@/components/ConfettiEffect";
 import Footer from "@/components/Footer";
+import BackToTop from "@/components/BackToTop";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Experience from "@/pages/Experience";
@@ -117,6 +118,7 @@ function App() {
           </main>
           
           <Footer />
+          <BackToTop />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

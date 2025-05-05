@@ -3,7 +3,7 @@ import '@/styles/about.scss';
 
 const About = () => {
   return (
-    <section id="about" className="py-20 px-4 relative about-section">
+    <section id="about" className="py-20 px-4 relative about-section mt-16">
       <div className="container mx-auto">
         <motion.h2 
           className="section-title"
