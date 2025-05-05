@@ -92,7 +92,7 @@ const Home = () => {
                 <i className="ri-linkedin-fill"></i>
               </motion.a>
               <motion.a 
-                href="https://github.com/joydeb1999" 
+                href="https://github.com/joydebcu" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:text-primary transition-colors" 
@@ -102,7 +102,7 @@ const Home = () => {
                 <i className="ri-github-fill"></i>
               </motion.a>
               <motion.a 
-                href="https://leetcode.com/joydeb1999" 
+                href="https://leetcode.com/joydeb1999217" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:text-primary transition-colors" 
