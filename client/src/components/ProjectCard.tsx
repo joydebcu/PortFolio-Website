@@ -8,6 +8,7 @@ export interface Project {
   technologies: string[];
   githubUrl?: string;
   liveUrl?: string;
+  period?: string;
 }
 
 interface ProjectCardProps {
@@ -25,7 +26,7 @@ const techPatterns = [
 ];
 
 const ProjectCard = ({ project, index }: ProjectCardProps) => {
-  const { title, icon, description, technologies, githubUrl, liveUrl } = project;
+  const { title, icon, description, technologies, githubUrl, liveUrl, period } = project;
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: false, margin: "-10% 0px -10% 0px" });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -95,7 +96,12 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
         
         <div className="p-6 relative z-10">
           <div className="flex justify-between items-start mb-3">
-            <h3 className="text-xl font-heading font-semibold">{title}</h3>
+            <div>
+              <h3 className="text-xl font-heading font-semibold">{title}</h3>
+              {period && (
+                <p className="text-sm text-foreground/60 mt-1">{period}</p>
+              )}
+            </div>
             <div className="flex space-x-2">
               {githubUrl && (
                 <motion.a 

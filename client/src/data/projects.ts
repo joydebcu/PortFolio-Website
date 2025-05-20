@@ -4,15 +4,18 @@ export const projectsData: Project[] = [
   {
     title: 'File Vault Application',
     icon: 'ri-folder-shield-line',
-    description: 'Abnormal File Vault is a file hosting application designed to optimize storage by using file deduplication and improve file retrieval through an intelligent search and filtering system. It consists of a React frontend and a Django REST Framework backend, containerized using Docker for easy deployment. The system focuses on reducing redundancy, tracking storage savings, and enabling fast, flexible file searches based on file name, type, size, and upload date.',
+    description: 'File Vault is a file hosting application designed to optimize storage by using file deduplication and improve file retrieval through an intelligent search and filtering system. It consists of a React frontend and a Django REST Framework backend, containerized using Docker for easy deployment. The system focuses on reducing redundancy, tracking storage savings, and enabling fast, flexible file searches based on file name, type, size, and upload date.',
     technologies: ['React', 'Django REST Framework', 'Docker', 'PostgreSQL'],
     githubUrl: 'https://github.com/joydebcu/File-Management-System-Django-React-',
-    features: [
-      'File Deduplication: Avoid storing duplicate files by checking at upload and referencing existing stored files.',
-      'Search & Filtering: Allow users to search by filename and filter based on file type, size range, and upload date with support for multiple simultaneous filters.',
-      'Optimized Performance: Database indexing and query optimization to handle large datasets efficiently.'
-    ],
     period: 'Apr 2025 - Present'
+  },
+  {
+    title: 'E-commerce Product URL Crawler',
+    icon: 'ri-pages-line',
+    technologies: ['Python', 'Beautiful Soap'],
+    description: 'A Python-based web crawler designed to discover product URLs on e-commerce websites. The crawler implements a breadth-first search approach and uses asynchronous requests to efficiently explore websites, identify product pages, and compile a list of product URLs.',
+    githubUrl: 'https://github.com/joydebcu/Ecommerce-Crawler',
+    period: 'March 2025 - May 2025'
   },
   {
     title: 'PokerPlanner',
